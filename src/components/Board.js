@@ -26,6 +26,10 @@ class Board extends Component {
       this.setState({ player: 'X' })
     }
   }
+  onRestart() {
+    this.setState({ game: new Game(), player: 'X' });
+    console.log('restart')
+  }
   render() {
     return (
       <div className="h-1/2 w-1/3 margin-auto bg-indigo-900 rounded-3xl flex flex-col  justify-center items-center   gap-0 bg-opacity-45">
@@ -42,7 +46,10 @@ class Board extends Component {
               );
             })}
         </div>
-        <img src={Restart} className="w-24 h-24 m-auto mt-32" />
+        <div onClick={() => this.onRestart()}>
+          < img src={Restart} className="w-24 h-24 m-auto mt-32" />
+        </div>
+
       </div>
     );
   }
