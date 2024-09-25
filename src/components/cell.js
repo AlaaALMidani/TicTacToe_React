@@ -11,13 +11,12 @@ class Cell extends Component {
     };
   }
   onClick(){
-
-    this.props.onClick(this.props.ind)
-    this.setState(()=>{})
+    this.setState({value:this.props.value})
+    this.props.click(this.props.ind)
   }
   render() {
     return (
-      <div onClick={() =>this.onClick() } className="bg-slate-100 bg-opacity-15 m-1 w-32 h-32 rounded-3xl content-center z-1 cursor-pointer">
+      <div onClick={() => this.onClick() } className="bg-slate-100 bg-opacity-15 m-1 w-32 hover:bg-blue-400 h-32 rounded-3xl content-center z-1 cursor-pointer">
         {this.state.value !== "_" ? (
 
           <img
