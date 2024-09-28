@@ -1,13 +1,17 @@
 class Logic {
+
+
   static checkEndOfGame(game) {
     if (Logic.possibleMoves(game).length === 0) {
-      return false;
+      console.log('erererere')
+      return "Tied";
     }
     if (Logic.checkWinner(game)) {
-      if (Logic.isOWon(game)) return "O";
-      if (Logic.isXWon(game)) return "X";
-      return undefined;
+      if (Logic.isOWon(game)) return "O Won";
+      if (Logic.isXWon(game)) return "X Won";
+
     }
+    return false
   }
 
   //////General checks
@@ -27,7 +31,7 @@ class Logic {
     for (let i = 0; i < 3; i++) {
       yes = true;
       for (let j = 0; j < 3; j++) {
-        if (game.board[ind(i, j)] !== char) yes = false;
+        if (game.board[ind(j, i)] !== char) yes = false;
       }
       if (yes) return true;
     }
@@ -74,6 +78,7 @@ class Logic {
       return true;
     return false;
   }
+
   /////check if there is a winner or not
   static checkWinner(game) {
     if (Logic.isOWon(game) || Logic.isXWon(game)) return true;
@@ -84,7 +89,7 @@ class Logic {
     let moves = [];
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (game.board[ind(i, j)] === "_") {
+        if (game.board[ind(i,j)] === "_") {
           moves.push({ line: i, column: j });
         }
       }
@@ -94,20 +99,26 @@ class Logic {
 
   static addPlay(game, player, ind) {
     if (ind < 0 || ind > 9) {
-      console.log(
-        "Invalid move!\nLine and column have to be between 0 and 2 inclusive"
-      );
-      return game;
+      return { game: game, message: "Invalid move!\nLine and column have to be between 0 and 2 inclusive" };
     }
 
     if (game.board[ind] !== "_") {
-      console.log("Invalid move!\nYou have to choose empty cell");
-      return game;
+      return { game: game, message: "Invalid move!\nYou have to choose empty cell" };
     }
-    
     let tempBoard = game.board;
     tempBoard[ind] = player;
-    return new Game(tempBoard);
+    return {
+      game: new Game(tempBoard), message: ""
+    };
+  }
+  static play(game, player, ind) {
+
+    const temp = Logic.addPlay(game, player, ind)
+    const end = Logic.checkEndOfGame(temp.game);
+    if (end) {
+      return { game: undefined, message: end };
+    }
+    return temp
   }
 }
 class Game {
@@ -125,10 +136,11 @@ class Game {
         console.log(this.board[ind(i, j)]);
       }
   }
+
 }
 function ind(row, col) {
   return row * 3 + col;
- }
+}
 // let game = new Game()
 // Logic.addPlay(game, 'X', 0).toString()
 // console.log('hhhhhh')
