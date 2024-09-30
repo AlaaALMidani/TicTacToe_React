@@ -1,10 +1,10 @@
 import "./App.css";
-import TecTacToe from "./components/TecTacToe.js";
+import ToDoComponent from './to-do/ToDo.js'
 
 function App() {
   return (
     <div className="w-full h-full">
-      <TecTacToe />
+      <ToDoComponent />
     </div>
   );
 }
