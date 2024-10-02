@@ -19,7 +19,7 @@ export class Task {
   }
 }
 export class ToDo {
-  toDo = [];
+  toDo = [];n
   done = [];
   edit(id, { header, body }) {
     let newTask;
